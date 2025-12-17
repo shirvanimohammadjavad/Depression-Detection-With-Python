@@ -1,6 +1,6 @@
 Markdown
 
-# Multi-modal Depression Detection System using AI 🧠💻
+# Multi-modal Depression Detection System using AI 
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red)
@@ -8,7 +8,7 @@ Markdown
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green)
 ![Status](https://img.shields.io/badge/Status-Completed-success)
 
-## 📌 Project Overview
+##  Project Overview
 
 This project is a **Multi-modal Emotion Recognition System** developed as a Bachelor's Thesis to assist in the diagnosis of depression through **Digital Phenotyping**. 
 
@@ -20,7 +20,7 @@ By leveraging **Deep Learning (CNNs, LSTMs)** and **Signal Processing**, this to
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
 * **Real-time Inference:** Live emotion detection from Webcam and Microphone using a **Flask** web application.
 * **Advanced Visual Architecture:** Implementation of **Mini-Xception** (Depthwise Separable Convolutions) for lightweight, high-speed inference on edge devices.
@@ -40,28 +40,8 @@ By leveraging **Deep Learning (CNNs, LSTMs)** and **Signal Processing**, this to
 * **Audio Processing:** Librosa, PyAudio
 * **Deployment:** Flask (Web API)
 * **Visualization:** Matplotlib, Seaborn, TensorBoard
-
 ---
-
-## 📂 Project Structure
-
-```text
-├── checkpoint/             # Saved model weights (PyTorch/Keras)
-├── data/                   # Raw and processed datasets (FER2013, RAVDESS, etc.)
-├── face_detector/          # Haar Cascades & DNN face detection modules
-├── model/                  # Neural Network Architectures (Mini-Xception)
-├── app.py                  # Flask Web Application entry point
-├── camera_demo.py          # Real-time computer vision demo script
-├── create_csv.py           # ETL script: Data ingestion and CSV creation
-├── data_extractor.py       # Audio feature extraction pipeline
-├── dataset.py              # PyTorch Dataset class & Data Loader
-├── deep_emotion_recognition.py # LSTM/GRU model definitions for Audio
-├── grid_search.py          # Hyperparameter optimization script
-├── train.py                # Main training loop (Epochs, Loss, Validation)
-├── test.py                 # Evaluation script on test data
-├── utils.py                # Helper functions (Normalization, Augmentation, Metrics)
-└── requirements.txt        # Python dependencies
-🔬 Methodology
+## Methodology
 1. Visual Modality (Facial Expression Recognition)
 Dataset: FER2013 (In-the-wild, 48x48 grayscale images).
 
@@ -82,7 +62,7 @@ Mel Spectrogram (128): Energy distribution across frequencies.
 
 Model: Comparison between LSTMs (for temporal dynamics) and optimized SVM/Random Forest classifiers.
 
-📊 Evaluation & Auditing
+ Evaluation & Auditing
 The models were rigorously audited to ensure reliability in a clinical context:
 
 Confusion Matrix Analysis: To identify class confusion (e.g., Sadness vs. Neutral).
@@ -91,7 +71,7 @@ Metric Tracking: Precision, Recall, and F1-Score were prioritized over simple ac
 
 Loss Curves: Monitoring Train vs. Validation loss via TensorBoard to detect and prevent Overfitting.
 
-💻 Installation & Usage
+## Installation & Usage
 Clone the repository:
 
 Bash
@@ -120,16 +100,38 @@ Train the Model (Optional):
 Bash
 
 python train.py --epochs 300 --batch_size 64
-🔮 Future Work
+## Future Work
 Late Fusion: Implementing a weighted voting mechanism to mathematically combine Audio and Visual probability vectors.
 
 Explainability (XAI): Integrating Grad-CAM to visualize ROI (Region of Interest) on faces to increase clinical trust.
 
 DICOM Integration: Adapting the pipeline to handle medical imaging formats directly.
 
-👤 Author
+## Author
 Mohammadjavad Shirvani
 
 M.Sc. Student in Artificial Intelligence, FAU Erlangen-Nürnberg
 
 Connect with me on LinkedIn
+
+
+---
+
+##  Project Structure
+
+```text
+├── checkpoint/             # Saved model weights (PyTorch/Keras)
+├── data/                   # Raw and processed datasets (FER2013, RAVDESS, etc.)
+├── face_detector/          # Haar Cascades & DNN face detection modules
+├── model/                  # Neural Network Architectures (Mini-Xception)
+├── app.py                  # Flask Web Application entry point
+├── camera_demo.py          # Real-time computer vision demo script
+├── create_csv.py           # ETL script: Data ingestion and CSV creation
+├── data_extractor.py       # Audio feature extraction pipeline
+├── dataset.py              # PyTorch Dataset class & Data Loader
+├── deep_emotion_recognition.py # LSTM/GRU model definitions for Audio
+├── grid_search.py          # Hyperparameter optimization script
+├── train.py                # Main training loop (Epochs, Loss, Validation)
+├── test.py                 # Evaluation script on test data
+├── utils.py                # Helper functions (Normalization, Augmentation, Metrics)
+└── requirements.txt        # Python dependencies
