@@ -1,75 +1,135 @@
-# Depression-Detection-With-Python
-Depression Detection Through Audio and Visual Emotion Recognition
-Abstract
-Depression diagnosis is traditionally conducted through comprehensive clinical interviews, where a psychologist studies the subject’s responses over a period to assess their mental condition. One key aspect of these interviews is evaluating both stable and variable moods, along with the range of emotional fluctuations over time.
-In this research, we aim to integrate this approach by using two methods—audio and video—to predict emotional states and, in the long term, assess a patient’s mental health. The output predicts emotions both in real-time (online) and offline (pre-recorded), providing a higher accuracy rate compared to other models by combining multiple audio-visual data models with appropriate weighting.
-This method aids psychologists in analyzing patients' emotions over time, ensuring a more accurate and reliable diagnosis for depression and related disorders.
-1-1: Introduction
-According to the World Health Organization, depression is the leading cause of disability worldwide. More than 300 million people of all ages suffer from this disorder, and its prevalence is increasing globally. Depression is a complex condition marked by significant, continuous mood changes.
-At its core, depression is a mental health disorder characterized by persistent and consecutive mood alterations—such as sadness, anxiety, and loss of interest in activities. These changes are observable over days or months. Despite effective treatments, 76-85% of people in low to middle-income countries do not receive treatment, primarily due to a lack of resources, trained medical personnel, and the stigma attached to mental health.
-However, a major challenge is often misdiagnosis. People with depression are frequently not accurately identified.
-1-2: Problem Statement
-There is a critical need for an accurate, independent, and accessible approach to diagnosing depression. With societies facing increasingly stressful environments, more individuals exhibit depressive tendencies. Early diagnosis can lead to timely treatment. The motivation for creating such a model is the driving force behind this paper. Testing this model involves conducting clinical interviews to generate audio and video data as model inputs.
-1-3: Significance and Necessity of Research
-Most laboratory tests for diagnosing depression are ineffective. In reality, conversations with the patient are the primary diagnostic tool. Doctors use standardized questions for depression screening. However, diagnosis is often challenging as depression can manifest in various ways, appearing explicitly only in rare cases. Thus, defining objective parameters during diagnosis becomes crucial.
-Three primary targets for objective analysis are speech, word context, and facial expressions. These are appealing as they can be measured affordably, remotely, non-invasively, and discreetly. For accurate depression diagnosis, a psychologist must review daily reports, a task requiring significant resources due to the data volume (e.g., 30 videos over 30 days) and their variability. This leads doctors to rely on traditional weekly summaries, which can sometimes result in misdiagnosis and deviation from the treatment path.
-Depressed patients exhibit notable speech and facial changes, such as reduced voice variation, frequent pitch deviations, stress patterns, and monotonous or flat speech. Facial expression patterns can range from happy to sad, anxious, fearful, disgusted, or angry. These expressions often appear more intense than in non-depressed individuals. The proposed method leverages two of these three parameters—image and audio—to recognize emotions. This approach can be easily implemented in mobile apps, web applications, or wearable devices, usable during consultations or via daily video submissions. This reduces future misdiagnoses and, due to its non-invasive nature, decreases the social stigma of seeking treatment.
-1-4: Main Research Objectives
-Primary Objective: Detection and classification of emotions through facial expressions and audio for diagnosing depression.
-2-1: Datasets
-Image Dataset:
-FER2013: This dataset contains 48x48 grayscale images of faces showing emotions categorized into seven classes (angry, disgusted, fearful, happy, sad, surprised, neutral). The training set consists of 28,709 samples, while the public test set has 35,887 samples. These data were obtained from Kaggle, an online platform for data science.
- 
+Markdown
 
-Audio Datasets:
-•	RAVDESS: Comprising 1,440 files of emotional speech, used as the primary source for feature extraction. Phrases include “Hi, nice to meet you” and “Dogs sitting by the door,” spoken by 24 actors (12 male, 12 female) with North American accents and various emotional states. It features eight emotion categories: anger, disgust, fear, happiness, neutrality, sadness, surprise, and calmness.
-•	TESS: The Toronto Emotional Speech Set, modeled after Northwestern University’s hearing test, includes 200 target words in the format “Say the word ____” by two female actors aged 26 and 64.
-•	EMO-DB: Recorded in 1997-1999 at the Technical University of Berlin's acoustics department, featuring emotional speech data.
-2-2 Facial Emotion Recognition Method
-The proposed model uses a Convolutional Neural Network (CNN) framework to build real-time CNNs that perform face detection and emotion classification simultaneously. The CNN models, Xception and mini-Xception, leverage depthwise separable convolutions and residual modules, enhancing parameter efficiency. The mini-Xception model achieved a 71% accuracy on the FER2013 dataset, surpassing standard models by 11%.
-In this article, a general convolutional neural network (CNN) architecture for the design of real-time CNNs is proposed. This model utilizes a real-time vision system that simultaneously performs face recognition and emotion classification tasks in a combined step using the proposed CNN model. After detailing the training steps of the model, we evaluate standard benchmark sets and highlight their differences with this model. The paper reports an accuracy of 71% on the FER-2013 emotion dataset, which represents an 11% improvement over standard models. According to research, human accuracy for classifying the image of a face into one of seven different emotions is 65% ± 5%. The difficulty of this task can be observed by attempting to manually classify the images of the FER-2013 dataset into the following emotions: "Angry," "Disgusted," "Fearful," "Happy," "Sad," "Surprised," and "Neutral."
-For the diagnosis of conditions such as depression, which are highly dependent on mood variations, robust and efficient facial expression systems are required. Advanced methods in image-related tasks like image classification and object detection are all based on convolutional neural networks (CNNs). Standard common CNNs for feature extraction include a set of fully connected layers at the end. Fully connected layers comprise most of the parameters of a CNN. Specifically, the VGG16 model has approximately 90% of its total parameters in its final fully connected layers.
-Recent modern models like Inception V3 have reduced the number of parameters in their final layers by incorporating global average pooling. Integrating global average pooling, which takes the average of all elements in the feature map, reduces each feature map to a scalar value. The averaging operation forces the network to extract overall features from the input image. The CNN model in this article, named Xception and mini-Xception, utilizes two of the most successful empirical assumptions in CNNs: the use of residual modules and depthwise separable convolutions. Depthwise separable convolutions further reduce the number of parameters by separating the processes of feature extraction and combination into a single convolutional layer.
-The two models used in the article were designed and evaluated with the idea of achieving the best accuracy relative to the number of parameters. The first model relies on the complete removal of fully connected layers. The second model combines the removal of fully connected layers with the inclusion of depthwise separable convolutions and residual modules. Both models were trained using the ADAM optimizer.
-Following previous models, the first model used global average pooling to entirely eliminate the fully connected layers. This was achieved by having the number of feature maps in the last convolutional layer equal to the number of classes. The first model is a standard fully convolutional neural network consisting of nine convolutional layers, batch normalization, ReLU, global average pooling, and the soft-max activation function. This model was trained on the FER-2013 dataset and achieved an accuracy of 66% on this dataset.
-The second model is inspired by Xception. This model combines the use of residual modules and depthwise separable convolutions. Residual modules alter the desired mapping between two subsequent layers, such that the learned features become differences between the original feature map and the desired features. As a result, the desired features H(x) are modified to solve the easier learning problem F(x):
-H(x) =F(x) +x (1)
-Since the first model eliminated the final fully connected layer, we further reduced the number of parameters by removing them from the convolutional layers. This was achieved through the use of depthwise separable convolutions. Depthwise separable convolutions consist of two distinct layers: depthwise convolutions and pointwise convolutions. Depthwise separable convolutions reduce computations compared to standard convolutions. The difference between a regular convolutional layer and a depthwise separable convolution can be observed in Figure 2.
- 
-Figure 2: Difference between (a) Standard Convolutions and (b) Depthwise Separable Convolutions
-The final model is a fully convolutional neural network that includes four residual depthwise separable convolutions, where each convolution is followed by batch normalization, ReLU, and an activation function. The last layer applies global average pooling and a soft-max activation function to produce a prediction. Figure 4 shows the complete final architecture, named mini-Xception.
-This model was tested on the FER-2013 dataset and achieved a 71% increase in accuracy for emotion classification. The final model weights can be stored in kilobyte-sized files, which are saved in the Checkpoints folder. The openCV module was used for face detection, and by reducing computational costs, both Xception and mini-Xception models were linked and used without significant time reduction to classify emotions in an image.
- 
-Figure 3: Proposed Model for Real-Time Classification
-2-3: Results of Emotion Recognition Model through Facial Analysis
-Specifically, this article examines the functioning and implementation of a vision system that performs real-time face recognition and emotion classification on unseen faces within an integrated module for use in detecting emotions in individuals with depression (using the Camera-demo file). We can observe that the CNN activates by considering features such as frowns, teeth, eyebrows, and eye enlargement, and each feature remains consistent within the same class. These results indicate that the CNN has learned to interpret perceivable features similarly to humans.
-The article also reports an increase in accuracy from 66% to 71% compared to common models. However, considering the algorithm's performance in the confusion matrix results, we can observe several common misclassifications, such as predicting "Sad" instead of "Fear," and predicting "Anger" instead of "Disgust," or classifying individuals with glasses as "Angry." This occurs because the "Angry" label activates when it thinks someone is frowning, and frowning features are misinterpreted with darker glass frames.
-This indicates potential areas for further improvement and increased accuracy in the future.
- 
+# Multi-modal Depression Detection System using AI 🧠💻
 
-2-4: Methods for Recording and Detecting Emotions through Voice
-Examination of the Method
-Depression is significantly influenced by emotions; one of the parameters affected by emotions is the voice. Sound waves containing human voices are different from those produced by other sound-generating entities, as each wave has a different frequency. Emotion recognition based on voice has been a challenging task for sound analysts. Speech emotions affect voice quality features, and in detecting depression, emotional states of the speaker are derived from their speech. For example, speech produced in states of fear, anger, or excitement is loud and rapid, with a wide and high range of pitch, while emotions like sadness or fatigue result in indistinct and weak speech. Emotion detection of an individual is performed through voice pattern analysis and speech pattern analysis. There are a set of tools and algorithms used to detect voice features.
-In this section, we present models of speech separation based on deep neural networks, using a multilayer perceptron (MLP) model defined by acoustic factors such as Mel Frequency Cepstral Coefficient (MFCC), Chroma, and MEL. The performance of the emotion detection system depends on the type of extracted features and the classifier used for emotion detection. For detecting speaker emotions in the classifications of: depressed (sad), neutral, happy, angry, and surprised, the MLP classifier model reports an accuracy of approximately 78%.
-For extracting useful features and then building classification models, human voice needs to be converted from analog to digital form. Among the most common voice feature tools used for voice recognition are Mel-scaled power spectrogram, Mel Frequency Cepstral Coefficients (MFCCs), and Chroma power spectrogram. By combining the extracted features with emotion labels as a training set, machine learning techniques are used to build a high-quality model for voice emotion recognition.
-Audio Feature Extraction (data_extractor)
-The speech signal is a feature. A small amount of data is extracted from the speech signal for signal analysis without disrupting its acoustic properties. This extracted signal is used for training and testing phases. We have used the raw wav format for speech features conversion. The RAVDESS and EMO-DB datasets, which are obtained from the Kaggle website, are used for training and testing. For using voice feature tools, the dataset sample rate and input data need to be reduced (16000) and be in a mono channel (without background and secondary sounds) to be processed in the Librosa library, which is an audio file processing module. This is to obtain various features such as power adjustment, pitch, and audio file configuration from the speech signal. A script called Convert Wav is used for this. This file can also be used to create a personal dataset in the desired language. By using the MFCC algorithm (Mel Frequency Cepstral Coefficients), the frequency structure of any sound produced by humans, determined by their vocal cords, can be accurately represented. Figure 5 shows this.
- 
-Figure 5
-Algorithm Examination
-Algorithms may contain unnecessary information that doesn't aid classification. Hence, in the utilsspeech file, a function has been written where AVAILABLE_EMOTIONS are the emotions we want to classify. Speech structures refer to the variability in speech pronunciation over time. When individuals express different emotions, their speech timing varies. This mainly involves two aspects: the duration of pronunciation and the average rate of pronunciation. The duration of sad speech is longer, while the duration for happiness, anger, and surprise is much shorter. The rate of sad speech is slower, whereas the level of excitement, anger, and surprise is relatively fast.
-Model Testing
-Measuring how well our model performs. In the testspeech file, a grid search was performed in the MLP Classifier to find the best hyperparameters. Consequently, this model is a fully connected (dense) neural network with a single layer comprising 300 units, a batch size of 256, 500 epochs, and an adaptive learning rate.
-2-5: Results of Emotion Recognition Model through Voice
-In this article, we extracted and examined speech feature algorithms such as MFCC, Chroma, and MEL to determine if they can be used to detect emotional states. We implemented a model that achieved an approximate test accuracy of 75%. By running the testspeech file, voice recording is done using the Pyaudio library, and after a pause, emotion classification is automatically performed.
- 
-Figure 6: Results of the Proposed Model Test
-3-1 Model Evaluation
-The model's effectiveness was tested using features derived from speech and image data. Speech recognition accuracy was validated with recordings processed using PyAudio. The CNN model’s performance on unseen data highlighted its capability to detect expressive features like furrows and widened eyes, with slight classification errors still observed.
-3-2: Future Work
-As next steps for depression diagnosis through emotion recognition in artificial intelligence:
-•	Improving the test results of current models
-•	Investigating a model for emotion recognition from the context of words or text
-•	Developing the existing web application (file app.py) for integrated processing and emotion recognition of voice, image, and text in a single input as a multimodal model and dataset
-•	(In the form of a real-time processing system or processing short daily video logs)
-•	Recording and storing results in a database, providing comprehensive monthly and yearly graphical analyses to review the diagnosis trends and patient improvement
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-Keras-orange)
+![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green)
+![Status](https://img.shields.io/badge/Status-Completed-success)
+
+## 📌 Project Overview
+
+This project is a **Multi-modal Emotion Recognition System** developed as a Bachelor's Thesis to assist in the diagnosis of depression through **Digital Phenotyping**. 
+
+The system analyzes two primary biomarkers of mental health:
+1.  **Visual Cues:** Facial expressions and micro-expressions (e.g., Flat Affect).
+2.  **Vocal Cues:** Acoustic features of speech (e.g., Monotone pitch, Jitter).
+
+By leveraging **Deep Learning (CNNs, LSTMs)** and **Signal Processing**, this tool provides an objective, non-invasive method to audit and quantify emotional states in real-time.
+
+---
+
+## 🚀 Key Features
+
+* **Real-time Inference:** Live emotion detection from Webcam and Microphone using a **Flask** web application.
+* **Advanced Visual Architecture:** Implementation of **Mini-Xception** (Depthwise Separable Convolutions) for lightweight, high-speed inference on edge devices.
+* **Robust Audio Analysis:** Extraction of **180 acoustic features** (MFCCs, Mel-Spectrograms, Chroma) using `Librosa`.
+* **Model Auditing:** Comprehensive evaluation using Confusion Matrices, Precision/Recall tracking, and Bias analysis.
+* **Hyperparameter Optimization:** Systematic tuning of ML models (SVM, Random Forest) using **Grid Search** to maximize generalization.
+* **Data Pipeline (ETL):** Automated scripts for data ingestion, cleaning, normalization, and augmentation.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Languages:** Python 3.x
+* **Deep Learning:** PyTorch (Vision), TensorFlow/Keras (Audio)
+* **Computer Vision:** OpenCV (`cv2`)
+* **Data Analysis:** Pandas, NumPy, Scikit-learn
+* **Audio Processing:** Librosa, PyAudio
+* **Deployment:** Flask (Web API)
+* **Visualization:** Matplotlib, Seaborn, TensorBoard
+
+---
+
+## 📂 Project Structure
+
+```text
+├── checkpoint/             # Saved model weights (PyTorch/Keras)
+├── data/                   # Raw and processed datasets (FER2013, RAVDESS, etc.)
+├── face_detector/          # Haar Cascades & DNN face detection modules
+├── model/                  # Neural Network Architectures (Mini-Xception)
+├── app.py                  # Flask Web Application entry point
+├── camera_demo.py          # Real-time computer vision demo script
+├── create_csv.py           # ETL script: Data ingestion and CSV creation
+├── data_extractor.py       # Audio feature extraction pipeline
+├── dataset.py              # PyTorch Dataset class & Data Loader
+├── deep_emotion_recognition.py # LSTM/GRU model definitions for Audio
+├── grid_search.py          # Hyperparameter optimization script
+├── train.py                # Main training loop (Epochs, Loss, Validation)
+├── test.py                 # Evaluation script on test data
+├── utils.py                # Helper functions (Normalization, Augmentation, Metrics)
+└── requirements.txt        # Python dependencies
+🔬 Methodology
+1. Visual Modality (Facial Expression Recognition)
+Dataset: FER2013 (In-the-wild, 48x48 grayscale images).
+
+Preprocessing: Histogram Equalization, Pixel Normalization [-1, 1], and Data Augmentation (Random Flip/Rotation).
+
+Model: Mini-Xception. chosen for its efficiency. It replaces standard convolutions with depthwise separable convolutions, reducing parameters significantly (~60k params) while maintaining accuracy.
+
+Performance: Achieved ~71% Accuracy (surpassing human-level accuracy on this dataset).
+
+2. Audio Modality (Speech Emotion Recognition)
+Datasets: RAVDESS, TESS, EMO-DB (Combined for linguistic invariance).
+
+Feature Engineering: * MFCCs (40): Timbre and spectral envelope.
+
+Chroma (12): Tonal content.
+
+Mel Spectrogram (128): Energy distribution across frequencies.
+
+Model: Comparison between LSTMs (for temporal dynamics) and optimized SVM/Random Forest classifiers.
+
+📊 Evaluation & Auditing
+The models were rigorously audited to ensure reliability in a clinical context:
+
+Confusion Matrix Analysis: To identify class confusion (e.g., Sadness vs. Neutral).
+
+Metric Tracking: Precision, Recall, and F1-Score were prioritized over simple accuracy to handle class imbalance.
+
+Loss Curves: Monitoring Train vs. Validation loss via TensorBoard to detect and prevent Overfitting.
+
+💻 Installation & Usage
+Clone the repository:
+
+Bash
+
+git clone [https://github.com/YourUsername/Depression-Detection-AI.git](https://github.com/YourUsername/Depression-Detection-AI.git)
+cd Depression-Detection-AI
+Install dependencies:
+
+Bash
+
+pip install -r requirements.txt
+Run the Real-time Vision Demo:
+
+Bash
+
+python camera_demo.py
+Run the Web Application:
+
+Bash
+
+python app.py
+Open your browser and navigate to http://127.0.0.1:5000/
+
+Train the Model (Optional):
+
+Bash
+
+python train.py --epochs 300 --batch_size 64
+🔮 Future Work
+Late Fusion: Implementing a weighted voting mechanism to mathematically combine Audio and Visual probability vectors.
+
+Explainability (XAI): Integrating Grad-CAM to visualize ROI (Region of Interest) on faces to increase clinical trust.
+
+DICOM Integration: Adapting the pipeline to handle medical imaging formats directly.
+
+👤 Author
+Mohammadjavad Shirvani
+
+M.Sc. Student in Artificial Intelligence, FAU Erlangen-Nürnberg
+
+Connect with me on LinkedIn
